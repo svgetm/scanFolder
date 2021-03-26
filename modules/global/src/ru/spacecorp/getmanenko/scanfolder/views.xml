@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
+
+    <view entity="scanfolder_Settings" name="settings-view" extends="_local">
+        <property name="ignoreFiles" view="_minimal">
+            <property name="nameFile"/>
+        </property>
+        <property name="expansion" view="_minimal">
+            <property name="expansion"/>
+        </property>
+    </view>
+    <view entity="scanfolder_ListAttributes" name="listAttributes-view" extends="_local"
+    >
+        <property name="fileDesc" view="_minimal">
+            <property name="size"/>
+            <property name="sysTenantId"/>
+        </property>
+    </view>
+</views>

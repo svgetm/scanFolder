@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://browseCaption"
+        focusComponent="listAttributesesTable"
+        messagesPack="ru.spacecorp.getmanenko.scanfolder.web.screens.listattributes">
+    <data readOnly="true">
+        <collection id="listAttributesesDc"
+                    class="ru.spacecorp.getmanenko.scanfolder.entity.ListAttributes"
+                    view="listAttributes-view">
+            <loader id="listAttributesesDl">
+                <query>
+                    <![CDATA[select e from scanfolder_ListAttributes e ORDER BY e.dataCreate DESC]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="settingsesDc" class="ru.spacecorp.getmanenko.scanfolder.entity.Settings">
+            <view extends="_local"/>
+            <loader id="settingsesDl">
+                <query>
+                    <![CDATA[select e from scanfolder_Settings e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="expansionSettingsesDc" class="ru.spacecorp.getmanenko.scanfolder.entity.ExpansionSettings">
+            <view extends="_local"/>
+            <loader id="expansionSettingsesDl">
+                <query>
+                    <![CDATA[select e from scanfolder_ExpansionSettings e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <timers>
+        <timer id="timerUpdate" delay="60000" autostart="true" repeating="true"/>
+    </timers>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="listAttributesesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="listAttributesesTable"
+                dataLoader="listAttributesesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="listAttributesesTable"
+                    width="100%"
+                    dataContainer="listAttributesesDc">
+            <actions>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="name"
+                        link="true"
+                        linkInvoke="saveFile"/>
+                <column id="extension"/>
+                <column id="size"/>
+                <column id="dataCreate"/>
+                <column id="dataMod"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <lookupField id="folderPath" nullOptionVisible="false" optionsContainer="settingsesDc" captionProperty="name"/>
+                <button id="createBtn" invoke="refreshList"
+                        caption="msg://&#1054;&#1073;&#1085;&#1086;&#1074;&#1080;&#1090;&#1100; &#1089;&#1087;&#1080;&#1089;&#1086;&#1082;"
+                        stylename="danger" icon="REFRESH_ACTION"/>
+                <lookupField id="sortField" optionsContainer="expansionSettingsesDc" captionProperty="expansion"/>
+                <button invoke="sortByExp" caption="mainMsg://sortByExp"/>
+                <button invoke="lookAll" caption="mainMsg://lookAll"/>
+                <button action="listAttributesesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

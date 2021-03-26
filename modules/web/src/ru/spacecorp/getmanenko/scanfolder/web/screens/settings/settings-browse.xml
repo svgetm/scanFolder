@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://browseCaption"
+        focusComponent="settingsesTable"
+        messagesPack="ru.spacecorp.getmanenko.scanfolder.web.screens.settings">
+    <data readOnly="true">
+        <collection id="settingsesDc"
+                    class="ru.spacecorp.getmanenko.scanfolder.entity.Settings"
+                    view="settings-view">
+            <loader id="settingsesDl">
+                <query>
+                    <![CDATA[select e from scanfolder_Settings e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="expansionSettingsesDc" class="ru.spacecorp.getmanenko.scanfolder.entity.ExpansionSettings">
+            <view extends="_local"/>
+            <loader id="expansionSettingsesDl">
+                <query>
+                    <![CDATA[select e from scanfolder_ExpansionSettings e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="failNameFilesesDc" class="ru.spacecorp.getmanenko.scanfolder.entity.FailNameFiles">
+            <view extends="_local"/>
+            <loader id="failNameFilesesDl">
+                <query>
+                    <![CDATA[select e from scanfolder_FailNameFiles e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="settingsLoggingsDc" class="ru.spacecorp.getmanenko.scanfolder.entity.SettingsLogging">
+            <view extends="_local"/>
+            <loader id="settingsLoggingsDl">
+                <query>
+                    <![CDATA[select e from scanfolder_SettingsLogging e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="box"
+            spacing="true">
+        <filter id="filter"
+                applyTo="settingsesTable"
+                dataLoader="settingsesDl">
+            <properties include=".*"/>
+        </filter>
+        <hbox id="box" spacing="true" width="100%">
+            <vbox spacing="true" height="100%">
+                <groupTable id="settingsesTable"
+                            width="100%"
+                            dataContainer="settingsesDc" height="100%" editable="true">
+                    <actions>
+                        <action id="create" type="create"/>
+                        <action id="edit" type="edit"/>
+                        <action id="remove" type="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="name"/>
+                        <column id="folederPath"/>
+                        <column id="lastTimeUpdate"/>
+                        <column id="work"/>
+                    </columns>
+                    <rowsCount/>
+                    <buttonsPanel id="buttonsPanel"
+                                  alwaysVisible="true">
+                        <button id="createBtn" action="settingsesTable.create"/>
+                        <button id="editBtn" action="settingsesTable.edit"/>
+                        <button id="removeBtn" action="settingsesTable.remove"/>
+                        <button id="startScan" invoke="startThreadScan" caption="mainMsg://startScan"
+                                stylename="friendly" icon="SEARCH"/>
+                        <button id="stopScan" invoke="stopThread" caption="mainMsg://stopScan"
+                                stylename="danger" />
+                    </buttonsPanel>
+                </groupTable>
+                <groupTable id="settingsLoggingsTable" height="100%" width="100%" dataContainer="settingsLoggingsDc"
+                            multiselect="true">
+                    <actions>
+                        <action id="create" type="create"/>
+                        <action id="edit" type="edit"/>
+                        <action id="remove" type="remove"/>
+                    </actions>
+                    <buttonsPanel alwaysVisible="true">
+                        <button id="settingsLoggingsTableCreateBtn" action="settingsLoggingsTable.create"/>
+                        <button id="settingsLoggingsTableEditBtn" action="settingsLoggingsTable.edit"/>
+                        <button id="settingsLoggingsTableRemoveBtn" action="settingsLoggingsTable.remove"/>
+                    </buttonsPanel>
+                    <columns>
+                        <column caption="mainMsg://keyLocal" id="keyLocal"/>
+                        <column id="text"/>
+                    </columns>
+                </groupTable>
+            </vbox>
+            <vbox spacing="true" height="100%">
+                <groupTable id="expansionSettingsesTable" height="100%" width="100%" dataContainer="expansionSettingsesDc"
+                            multiselect="true">
+                    <actions>
+                        <action id="create" type="create"/>
+                        <action id="edit" type="edit"/>
+                        <action id="remove" type="remove"/>
+                    </actions>
+                    <buttonsPanel alwaysVisible="true">
+                        <lookupField caption="mainMsg://lookupExp" id="lookExp" optionsContainer="expansionSettingsesDc" captionProperty="expansion"
+                                     nullOptionVisible="false"/>
+                        <button id="expansionSettingsesTableEditBtn" action="expansionSettingsesTable.edit"/>
+                        <button id="expansionSettingsesTableRemoveBtn" action="expansionSettingsesTable.remove"/>
+                    </buttonsPanel>
+                    <columns>
+                        <column id="expansion"/>
+                    </columns>
+                </groupTable>
+                <groupTable id="failNameFilesesTable" height="100%" width="100%" dataContainer="failNameFilesesDc"
+                            multiselect="true">
+                    <actions>
+                        <action id="create" type="create"/>
+                        <action id="edit" type="edit"/>
+                        <action id="remove" type="remove"/>
+                    </actions>
+                    <buttonsPanel alwaysVisible="true">
+                        <lookupField caption="mainMsg://lookupFail" id="lookFailName" optionsContainer="failNameFilesesDc" captionProperty="nameFile"
+                                     nullOptionVisible="false"/>
+                        <button id="failNameTableEditBtn" action="failNameFilesesTable.edit"/>
+                        <button id="failNameTableRemoveBtn" action="failNameFilesesTable.remove"/>
+                    </buttonsPanel>
+                    <columns>
+                        <column id="nameFile"/>
+                    </columns>
+                </groupTable>
+            </vbox>
+        </hbox>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

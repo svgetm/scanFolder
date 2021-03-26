@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="ru.spacecorp.getmanenko.scanfolder.web.screens.settings">
+    <data>
+        <instance id="settingsDc"
+                  class="ru.spacecorp.getmanenko.scanfolder.entity.Settings"
+                  view="settings-view">
+            <loader/>
+            <collection id="expansionDc" property="expansion"/>
+            <collection id="ignoreFilesDc" property="ignoreFiles"/>
+        </instance>
+    </data>
+    <dialogMode height="auto"
+                width="auto"
+                forceDialog="true" closeOnClickOutside="true"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="settingsDc">
+            <column width="250px">
+                <textField id="nameField" property="name"/>
+                <textField id="folederPathField" property="folederPath"/>
+                <dateField id="lastTimeUpdateField" property="lastTimeUpdate"/>
+                <checkBox id="work" property="work"/>
+            </column>
+        </form>
+        <groupBox id="expansionBox" caption="msg://ru.spacecorp.getmanenko.scanfolder.entity/Settings.expansion">
+            <table id="expansionTable" dataContainer="expansionDc" width="450px" height="200px">
+                <actions>
+                    <action id="add" type="add"/>
+                    <action id="exclude" type="exclude"/>
+                </actions>
+                <columns>
+                    <column id="expansion"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="expansionTable.add"/>
+                    <button action="expansionTable.exclude"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <groupBox id="ignoreFilesBox" caption="msg://ru.spacecorp.getmanenko.scanfolder.entity/Settings.ignoreFiles">
+            <table id="ignoreFilesTable" dataContainer="ignoreFilesDc" width="450px" height="200px">
+                <actions>
+                    <action id="add" type="add"/>
+                    <action id="exclude" type="exclude"/>
+                </actions>
+                <columns>
+                    <column id="nameFile"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="ignoreFilesTable.add"/>
+                    <button action="ignoreFilesTable.exclude"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

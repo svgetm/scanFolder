@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://failNameFilesBrowse.caption"
+        focusComponent="failNameFilesesTable"
+        messagesPack="ru.spacecorp.getmanenko.scanfolder.web.screens.failnamefiles">
+    <data readOnly="true">
+        <collection id="failNameFilesesDc"
+                    class="ru.spacecorp.getmanenko.scanfolder.entity.FailNameFiles">
+            <view extends="_local"/>
+            <loader id="failNameFilesesDl">
+                <query>
+                    <![CDATA[select e from scanfolder_FailNameFiles e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="failNameFilesesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="failNameFilesesTable"
+                dataLoader="failNameFilesesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="failNameFilesesTable"
+                    width="100%"
+                    dataContainer="failNameFilesesDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="nameFile"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="failNameFilesesTable.create"/>
+                <button id="editBtn" action="failNameFilesesTable.edit"/>
+                <button id="removeBtn" action="failNameFilesesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
