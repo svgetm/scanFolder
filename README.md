@@ -162,7 +162,7 @@
 #### Координаты модуля
 <a name="coord"></a>
 
- `ru.spacecorp.getmanenko.scanfolder:scanFolder-global:0.1-SNAPSHOT`
+ `ru.spacecorp.getmanenko.scanfolder:scanFolder-global:2.2-SNAPSHOT`
  
  
 <small>[в начало](#zeroDot)</small>
