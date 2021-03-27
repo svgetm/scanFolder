@@ -37,7 +37,7 @@ cuba {
 
 dependencies {
     appComponent("com.haulmont.cuba:cuba-global:$cubaVersion")
-    appComponent('ru.spacecorp.getmanenko.logservice:logservice-global:0.2-SNAPSHOT')
+    appComponent('ru.spacecorp.getmanenko.logservice:logservice-global:0.5-SNAPSHOT')
     appComponent('com.haulmont.addon.globalevents:cubaglevt-global:0.5.1')
 }
 
