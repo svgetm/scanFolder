@@ -1,5 +1,6 @@
 package ru.spacecorp.getmanenko.scanfolder.entity;
 
+import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.Table;
 
 @Table(name = "SCANFOLDER_SETTINGS_LOGGING")
 @Entity(name = "scanfolder_SettingsLogging")
+@NamePattern("%s|keyLocal")
 public class SettingsLogging extends StandardEntity {
     private static final long serialVersionUID = -1700649531350257386L;
 
