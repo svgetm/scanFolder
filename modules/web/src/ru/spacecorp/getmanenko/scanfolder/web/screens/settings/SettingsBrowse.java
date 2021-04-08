@@ -61,9 +61,10 @@ public class SettingsBrowse extends StandardLookup<Settings> {
     @Subscribe("settingsesTable")
     public void onSettingsesTableSelection(Table.SelectionEvent<Settings> event) {
 
-        startScan.setEnabled(!settingsesTable.getSingleSelected().getScaning());
-        stopScan.setEnabled(true);
-
+        if (settingsesTable.getSingleSelected() != null){
+            startScan.setEnabled(!settingsesTable.getSingleSelected().getScaning());
+            stopScan.setEnabled(true);
+        }
     }
 
 
